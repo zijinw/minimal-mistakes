@@ -2,8 +2,8 @@
 main:
   - title: "Info"
     url: https://zijinw.github.io/
-  - title: "Articles"
-    url: /_posts/
+  # - title: "Articles"
+  #  url: /_posts/
   # - title: "Sample Posts"
   #   url: /year-archive/
   # - title: "Sample Collections"
