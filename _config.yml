@@ -13,7 +13,7 @@ name                     : "Zijin Wang"
 description              : "An amazing website."
 url                      : "https://zijinw.github.io"
 baseurl                  : "/zijinw.github.io"
-repository               : "zijinw/minimal-mistakes"
+repository               : "zijinw/zijinw.github.io"
 teaser                   : "/assets/images/500x300.png"
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
@@ -82,7 +82,7 @@ author:
   bio              : "There is long long way to go"
   location         : "Irvine, CA"
   email            : "genezijinw@gmail.com"
-  uri              :
+  uri              : "zijinw.github.io"
   bitbucket        :
   codepen          :
   dribbble         :
@@ -175,8 +175,7 @@ sass:
 permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
-timezone: # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-
+timezone: America/Los_Angeles
 
 # Plugins (previously gems:)
 plugins:
