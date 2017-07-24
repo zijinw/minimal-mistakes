@@ -1,4 +1,4 @@
-# SpringMCV Note II #
+# SpringMVC Note 2 #
 
 ## Create a Hello World Spring Project Sample
 
