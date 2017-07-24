@@ -1,4 +1,3 @@
-# SpringMVC Note 1
 
 # Overview
 
