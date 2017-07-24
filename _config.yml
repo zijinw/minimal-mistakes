@@ -1,13 +1,20 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your entire site, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# `jekyll serve`. If you change this file, please restart the server process.
+
 # Site Settings
 locale                   : "en"
 title                    : "Site Title"
 title_separator          : "-"
-name                     : "Zijin Wang"
-description              : "Personal Webpage
-url                      : "https://zijinw.github.io"
-baseurl                  : "/zijinw.github.io"
-repository               : "zijinw/zijinw.github.io"
-teaser                   : "/assets/images/500x300.png"
+name                     : "Your Name"
+description              : "An amazing website."
+url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+baseurl                  : # the subpath of your site, e.g. "/blog"
+repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
 comments:
@@ -70,25 +77,25 @@ analytics:
 
 # Site Author
 author:
-  name             : "Zijin Wang"
-  avatar           : "/assets/images/bio-photo.jpg"
-  bio              : "Long long way to go"
-  location         : "Irvine, CA"
-  email            : "genezijinw@gmail.com"
-  uri              : "zijinw.github.io"
+  name             : "Your Name"
+  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  bio              : "I am an amazing person."
+  location         : "Somewhere"
+  email            :
+  uri              :
   bitbucket        :
   codepen          :
   dribbble         :
   flickr           :
-  facebook         : "https://www.facebook.com/profile.php?id=100013683422258"
+  facebook         :
   foursquare       :
-  github           :  "https://github.com/zijinw"
+  github           :
   gitlab           :
   google_plus      :
   keybase          :
   instagram        :
   lastfm           :
-  linkedin         : "https://www.linkedin.com/in/zijin-wang/"
+  linkedin         :
   pinterest        :
   soundcloud       :
   stackoverflow    : # "123456/username" (the last part of your profile url, e.g. http://stackoverflow.com/users/123456/username)
@@ -168,7 +175,8 @@ sass:
 permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
-timezone: America/Los_Angeles
+timezone: # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
 
 # Plugins (previously gems:)
 plugins:
