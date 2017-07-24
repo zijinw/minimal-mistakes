@@ -10,7 +10,7 @@ locale                   : "en"
 title                    : "Site Title"
 title_separator          : "-"
 name                     : "Zijin Wang"
-description              : "An amazing website."
+description              : "Personal Webpage
 url                      : "https://zijinw.github.io"
 baseurl                  : "/zijinw.github.io"
 repository               : "zijinw/zijinw.github.io"
@@ -79,7 +79,7 @@ analytics:
 author:
   name             : "Zijin Wang"
   avatar           : "/assets/images/bio-photo.jpg"
-  bio              : "There is long long way to go"
+  bio              : "Long long way to go"
   location         : "Irvine, CA"
   email            : "genezijinw@gmail.com"
   uri              : "zijinw.github.io"
