@@ -1,3 +1,10 @@
+---
+layout: single
+title:  "SpringMVC Note (1)"
+date:   2017-07-24 18:00:00
+categories: SpringMVC
+---
+
 # Overview
 
 <p>This series of articles are my personal notes on learning Java SpringMVC with Maven. Most of these contents comes from <a href="https://spring.io/guides">Spring official guides</a>, <a href="https://en.wikipedia.org/wiki/Main_Page">Wikipedia</a> and <a href="https://www.tutorialspoint.com/spring/index.htm">TutorialsPoint</a>. I will not use any of these contents commercially, and the copyright belongs to their original authors. It is said that Spring is the most popular development framework used in enterprise Java, and I also come across it during my internship now. This is the main motivition that I started to learn it. So let's start.</p>

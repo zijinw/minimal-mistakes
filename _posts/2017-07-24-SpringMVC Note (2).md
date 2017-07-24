@@ -1,3 +1,10 @@
+---
+layout: single
+title:  "SpringMVC Note (2)"
+date:   2017-07-24 20:00:00
+categories: SpringMVC
+---
+
 ## Create a Hello World Spring Project Sample
 
 Before reading this note, make sure you have installed:
