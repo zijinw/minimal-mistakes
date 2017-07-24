@@ -1,4 +1,3 @@
-
 ## Create a Hello World Spring Project Sample
 
 Before reading this note, make sure you have installed:
