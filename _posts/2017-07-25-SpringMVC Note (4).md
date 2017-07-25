@@ -5,7 +5,7 @@ date:   2017-07-25 18:40:00
 categories: SpringMVC
 ---
 
-# Always hear about bean, but what is it? #
+# Always hear about “bean”, but what is it? #
 
 We have met with bean for several times before. A bean is an object that is instantiated, assembled, and managed by a Spring IoC container. These beans are created with the **configuration metadata** that you supply to the container, like in the Beans.xml file that we write before. The configuration metadata is the information that container needs to know, like how to create a bean, bean's life cycle, and bean's dependencies. The following are a set of properties that define a bean.
 
