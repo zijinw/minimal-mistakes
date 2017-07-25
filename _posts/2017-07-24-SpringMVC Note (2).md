@@ -116,8 +116,7 @@ This is just a Hello World demo so maybe some of these JARs will not be used. Ac
 
 After configuring this pom file, we can write some codes now. First, note that Idea didn't create a package for us, and we need to do this by ourselves. Create a "java" directory under src-main, this name indicates that we will put our source codes here. In the idea, mark this directory as a Source Root. Then the color of this directory will turn blue. Under this "java" directory, create a package. Here I will call it "com.springtutorial", like below.
 
-
-![spring2-1](https://github.com/zijinw/zijinw.github.io/tree/master/assets/images/spring2-1.png)
+![spring2-1](https://raw.githubusercontent.com/zijinw/BlogPic/master/pictures/spring2-1.png)
 
 In the com.springtutorial, create a HelloWorld.java and a MainApp.java.
 
