@@ -55,7 +55,7 @@ Next is another sample for XML based configuration file.
    	<bean id = "..." class = "..." destroy-method = "...">
       <!-- collaborators and configuration for this bean go here -->
    	</bean>
-	
+
 	</beans>
 
 We can see that these properties are all set in the first <>, just next to the "bean" keyword. So according to the knowledge that has been learned till now, I guess that

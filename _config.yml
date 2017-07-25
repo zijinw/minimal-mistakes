@@ -82,20 +82,20 @@ author:
   bio              : "Don't let the sun blast your shadow."
   location         : "Irvine, CA"
   email            : "genezijinw@gmail.com"
-  uri              : "zijinw.github.io"
+  uri              : # "zijinw.github.io"
   bitbucket        :
   codepen          :
   dribbble         :
   flickr           :
-  facebook         : "https://www.facebook.com/profile.php?id=100013683422258"
+  facebook         : "profile.php?id=100013683422258"
   foursquare       :
-  github           : "https://github.com/zijinw/"
+  github           : "zijinw/"
   gitlab           :
   google_plus      :
   keybase          :
   instagram        :
   lastfm           :
-  linkedin         : "https://www.linkedin.com/in/zijin-wang/"
+  linkedin         : "in/zijin-wang/"
   pinterest        :
   soundcloud       :
   stackoverflow    : # "123456/username" (the last part of your profile url, e.g. http://stackoverflow.com/users/123456/username)
