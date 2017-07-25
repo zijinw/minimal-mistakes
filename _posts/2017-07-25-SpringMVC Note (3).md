@@ -9,7 +9,7 @@ categories: SpringMVC
 
 Container is a new definition to me, maybe because I have never done any enterprise Java project before. In this note we will have a look at it and understand its role in Spring.
 
-Container is the core of Spring framework.It can create objects and manage their whole life cycle. Actually the ApplicationContext we created in the last note is a container, and we have seen that it works as the configuration file tells it. The containers in Spring combine Java POJO classes and configuration metadata together to create an executable application.
+Container is the core of Spring framework. It can create objects and manage their whole life cycle. Actually the ApplicationContext we created in the last note is a container, and we have seen that it works as the configuration file tells it. The containers in Spring combine Java POJO classes and configuration metadata together to create an executable application.
 
 There are two types of containers in Spring:
 
