@@ -97,7 +97,7 @@ And in the main method, we write:
 	
       HelloWorld objB = (HelloWorld) context.getBean("helloWorld");
       objB.getMessage();
-   	}
+	}
 
 At first, we create objA using getBean("helloWorld"), and set its message. Then, we create a new objB by using the same getBean("helloWorld"). Because in the Beans.xml, we define "helloWorld" bean as a singleton, so this time this objB will exactly be the objA that we have created. So the getMessage() method of objA and objB will return the same message.
 
@@ -160,3 +160,4 @@ If we have a lot of beans that have the same init and destroy method, we don't n
         	<property name = "message" value = "Hello World!"/>
     	</bean>
 	</beans>
+
