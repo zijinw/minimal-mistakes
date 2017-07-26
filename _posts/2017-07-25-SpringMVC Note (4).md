@@ -114,7 +114,7 @@ The life cycle of a bean means the process from its instantiation  to its destru
 ### Initialization and Destruction Methods ###
 In the xml file we can tell the container what to do after the bean has been initialized, and/or before the destruction. For example, when defining a bean, we can say
 
-    <bean id="helloWorld" class="com.springTutorial.HelloWorld" init-method="init" destroy-method="destroy">
+    <bean id="helloWorld" class="com.springtutorial.HelloWorld" init-method="init" destroy-method="destroy">
     	<property name = "message" value = "Hello World!"/>
     </bean>
 
@@ -129,15 +129,24 @@ And in that **HelloWorld** class, we define a init method and a destroy method:
 
 In the main method, we write:
 
-	public static void main(String[] args) {
-    	AbstractApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+	import org.springframework.context.support.AbstractApplicationContext;
+	import org.springframework.context.support.ClassPathXmlApplicationContext;
+	
+	public class MainApp{
+		public static void main(String[] args) {
+    		AbstractApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 
-    	HelloWorld obj = (HelloWorld) context.getBean("helloWorld");
-    	obj.getMessage();
-    	context.registerShutdownHook();
+    		HelloWorld obj = (HelloWorld) context.getBean("helloWorld");
+    		obj.getMessage();
+    		context.registerShutdownHook();
+		}
 	}
 
-Note that here we need to register a shutdown hook registerShutdownHook() method that is declared on the AbstractApplicationContext class. This will ensure a graceful shutdown and call the relevant destroy methods.
+Note that here 
+
+1.	We import **.support.AbstractApplicationContext** instead of **ApplicationContext** used before in the basic Hello World example to create a container. The difference between these two classes is just like the abstract class and a sample class. The method **registerShutdownHook()** is only supported by **AbstractApplicationContext**.
+
+2.	We need to register a shutdown hook registerShutdownHook() method. This will ensure a graceful shutdown and call the relevant destroy methods.
 
 Run the main method, the following will return:
 
@@ -161,3 +170,119 @@ If we have a lot of beans that have the same init and destroy method, we don't n
     	</bean>
 	</beans>
 
+## Bean Post Processors ##
+
+BeanPostProcessor is an interface that defines callback methods that you can implement to provide your own instantiation logic, dependency-resolution logic, etc. You can also implement some custom logic after the Spring container finishes instantiating, configuring, and initializing a bean by plugging in one or more BeanPostProcessor implementations. Let's look at the original code of this interface first:
+
+	package org.springframework.beans.factory.config;
+	
+	import org.springframework.beans.BeansException;
+	
+	public interface BeanPostProcessor {
+    	Object postProcessBeforeInitialization(Object var1, String var2) throws BeansException;
+	
+    	Object postProcessAfterInitialization(Object var1, String var2) throws BeansException;
+	}
+
+There are two kinds of methods here, which define what will be done just before and after the initialization of this bean. We will soon learn an example of how to use it.
+
+You can configure multiple BeanPostProcessor interfaces and you can control the order in which these BeanPostProcessor interfaces execute by setting the order property provided the BeanPostProcessor implements the Ordered interface.
+
+The BeanPostProcessors operate on bean (or object) instances, which means that the Spring IoC container instantiates a bean instance and then BeanPostProcessor interfaces do their work.
+
+An ApplicationContext automatically detects any beans that are defined with the implementation of the BeanPostProcessor interface and registers these beans as postprocessors, to be then called appropriately by the container upon bean creation.
+
+For example, we still use the previous HelloWorld.java with init-method and destroy-method. Then, we write another InitHelloWorld.java:
+
+    import org.springframework.beans.factory.config.BeanPostProcessor;
+    import org.springframework.beans.BeansException;
+    
+    public class InitHelloWorld implements BeanPostProcessor {
+       public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+      		System.out.println("Before Initialization : " + beanName);
+      		return bean;  // you can return any other object as well
+       }
+       public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+      		System.out.println("After Initialization : " + beanName);
+      		return bean;  // you can return any other object as well
+       }
+    }
+
+Here we use the BeanPostProcessor interface to define a class InitHelloWorld. In this class there are two methods: postProcessBeforeInitialization and postProcessAfterInitialization. Both of them are defined to print something. This is a very basic example of implementing BeanPostProcessor, which prints a bean name before and after initialization of any bean. You can implement more complex logic before and after instantiating a bean because you have access on bean object inside both the post processor methods.
+
+After we define this class, we need to tell the container to use it. So we need to mention this in the .xml configuration file.
+
+    <?xml version = "1.0" encoding = "UTF-8"?>
+    
+    <beans xmlns = "http://www.springframework.org/schema/beans"
+       xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation = "http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+       <bean id = "helloWorld" class = "com.springtutorial.HelloWorld" init-method = "init" destroy-method = "destroy">
+      		<property name = "message" value = "Hello World!"/>
+       </bean>
+		
+       <bean class = "com.springtutorial.InitHelloWorld"></bean>
+		
+    </beans>
+
+We can find that in addition to the <bean> element we have been familiar with, we defined another bean, which points to the class InitHelloWorld. The output is:
+
+    Before Initialization : helloWorld
+    Hello World has started
+    After Initialization : helloWorld
+    Your Message: Hello World!
+    Hello World will destroy now
+
+We can find that we just write a class which implements the BeanPostProcessor interface and create a bean for it in the .xml. The container automatically reads this class and finds that it implements BeanPostProcessor, so it automatically use the methods defined in this class (postProcessBeforeInitialization and postProcessAfterInitialization) when we use the container to read the bean in the MainApp.java.
+
+At last, postProcessBeforeInitialization executes before the initialization of the bean, and postProcessAfterInitialization executes right after the initialization of the bean.
+
+## Bean Definition Inheritance ##
+
+A bean definition can contain a lot of configuration information, including constructor arguments, property values, and container-specific information such as initialization method, static factory method name, and so on.
+
+A child bean definition inherits configuration data from a parent definition. The child definition can override some values, or add others, as needed.
+
+Spring Bean definition inheritance has nothing to do with Java class inheritance but the inheritance concept is same. You can define a parent bean definition as a template and other child beans can inherit the required configuration from the parent bean.
+
+When you use XML-based configuration metadata, you indicate a child bean definition by using the parent attribute, specifying the **parent** bean as the value of this attribute, like below:
+
+	<bean id = "helloWorld" class = "com.springtutorial.HelloWorld">
+      <property name = "message1" value = "Hello World!"/>
+      <property name = "message2" value = "Hello World Again!"/>
+	</bean>
+	
+	<bean id =" helloIrvine" class = "com.springtutorial.HelloIrvine" parent = "helloWorld">
+      <property name = "message1" value = "Hello Irvine!"/>
+      <property name = "message3" value = "Hello Irvine Again!"/>
+	</bean>
+
+Here in the second bean definition we make the parent of "helloIrvine" be "helloWorld". Note here these two are both the bean id, not the name of the class! Here we did not give the message2 to helloIrvine, but actually if we create an instance of helloIrvine and use getMessage2(), it will print out:
+
+    Hello World Again!
+The child just extends this field in its parent. But if we use the instance of helloIrvine to getMessage1(), it will give us 
+
+
+    Hello Irvine!
+
+Because the field message1 has been override.
+
+### Bean Definition Template ###
+
+If we have a lot of beans that are very similar in some properties, we can create a template that all the other beans can use.
+
+	<bean id = "template" abstract = "true">
+      <property name = "message1" value = "Hello World!"/>
+      <property name = "message2" value = "Hello World Again!"/>
+	</bean>
+	
+	<bean id =" helloIrvine" class = "com.springtutorial.HelloIrvine" parent = "template">
+      <property name = "message1" value = "Hello Irvine!"/>
+      <property name = "message3" value = "Hello Irvine Again!"/>
+	</bean>
+
+We can see that the bean template doesn't have a class, which is very natural: it exactly doesn't point to any existed class. Instead, it has an attribute **abstract** whose value is true. This tells the container that this is an abstract bean, and cannot be initialized. Then, in the second bean, we explicitly give this bean a parent whose id is "template". I believe that you will understand what will happen.
+
+By doing so, if we have a lot of beans that will have similar properties, creating a bean template will save a lot of effort for us.
