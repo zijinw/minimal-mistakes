@@ -32,30 +32,30 @@ Next is another sample for XML based configuration file.
 	<?xml version = "1.0" encoding = "UTF-8"?>
 
 	<beans xmlns = "http://www.springframework.org/schema/beans"
-   	xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
-   	xsi:schemaLocation = "http://www.springframework.org/schema/beans
-   	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation = "http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	
-   	<!-- A simple bean definition -->
-   	<bean id = "..." class = "...">
+	<!-- A simple bean definition -->
+	<bean id = "..." class = "...">
       <!-- collaborators and configuration for this bean go here -->
-   	</bean>
+	</bean>
 	
-   	<!-- A bean definition with lazy init set on -->
-   	<bean id = "..." class = "..." lazy-init = "true">
+	<!-- A bean definition with lazy init set on -->
+	<bean id = "..." class = "..." lazy-init = "true">
       <!-- collaborators and configuration for this bean go here -->
-   	</bean>
+	</bean>
 	
-   	<!-- A bean definition with initialization method -->
-   	<bean id = "..." class = "..." init-method = "...">
+	<!-- A bean definition with initialization method -->
+	<bean id = "..." class = "..." init-method = "...">
       <!-- collaborators and configuration for this bean go here -->
-   	</bean>
+	</bean>
 	
-   	<!-- A bean definition with destruction method -->
-   	<bean id = "..." class = "..." destroy-method = "...">
+	<!-- A bean definition with destruction method -->
+	<bean id = "..." class = "..." destroy-method = "...">
       <!-- collaborators and configuration for this bean go here -->
-   	</bean>
-
+	</bean>
+	
 	</beans>
 
 We can see that these properties are all set in the first <>, just next to the "bean" keyword. So according to the knowledge that has been learned till now, I guess that
@@ -64,4 +64,5 @@ We can see that these properties are all set in the first <>, just next to the "
 
 is not the "Properties" element above, because this line of code is written below to the bean element. (Just a kind of guess. Maybe wrong, and will be corrected later if I am wrong).
 
+## Bean Scopes ##
 
