@@ -6,6 +6,7 @@ categories: SpringMVC
 ---
 
 # Beans Auto-Wiring: they set their own properties automatically! #
+
 We have learned how to use <bean> elements to declare beans and inject bean using <property> or <constructor-arg> elements. Actually Spring can auto-wire the relationships between collaborating beans without using <property> and <constructor-arg> elements.
 
 There are following ways to wire the beans.
