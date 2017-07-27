@@ -1,11 +1,11 @@
 ---
 layout: single
 title:  "SpringMVC Note (5)"
-date:   2017-07-26 20:00:00
+date:   2017-07-27 10:20:00
 categories: SpringMVC
 ---
 
-# Knowledge about dependency injection #
+# Basic knowledge about dependency injection #
 
 As the first note said, the core of Spring is **Dependency Injection (DI)**. This is an very important concept. Assuming that you are building a very complex Java application, you must want different classes to be as independent as they can, because by doing so you can increase your ability to reuse these classes. You can also perform tests on some of these classes while have no impact on the other classes.
 
@@ -142,3 +142,122 @@ Also, a more safe way to write this is using **index** of parameters instead of 
     </beans>
 
 ## Setter-based Dependency Injection ##
+
+Compared to constructor-based DI, setter-based DI first invokes a no-argument constructor or no-argument static factory method to instantiate your bean, and later calls setter methods on the beans. In the next example, the TextEditor class is dependency-injected only by pure setter-based injection.
+
+	package com.springtutorial;
+	
+	public class TextEditor {
+    	private SpellChecker spellChecker;
+	
+    	// a setter method
+    	public void setSpellChecker(SpellChecker spellChecker) {
+    	    System.out.println("Inside setSpellChecker.");
+    	    this.spellChecker = spellChecker;
+    	}
+    	// a getter method
+    	public SpellChecker getSpellChecker() {
+    	    return this.spellChecker;
+    	}
+    	
+    	public void spellCheck() {
+    	    spellChecker.checkSpelling();
+    	}
+	}
+
+Note that here we don't define a constructor in this class, so it will use the default one (no argument).
+
+The SpellChecker class is as before.
+
+	package com.springtutorial;
+	
+	public class SpellChecker {
+	    public SpellChecker() {
+	        System.out.println("Inside SpellChecker constructor." );
+	    }
+	    public void checkSpelling() {
+	        System.out.println("Inside checkSpelling." );
+	    }
+	}
+
+The main function is also as before.
+
+	package com.springtutorial;
+	
+	import org.springframework.context.ApplicationContext;
+	import org.springframework.context.support.ClassPathXmlApplicationContext;
+	public class MainApp {
+    	public static void main(String[] args) {
+    	    ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+    	    TextEditor obj = (TextEditor) context.getBean("textEditor");
+    	    obj.spellCheck();
+    	}
+	}
+
+In the Beans.xml, we write:
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+    	<bean id = "textEditor" class = "com.springtutorial.TextEditor">
+    	    <property name = "spellChecker" ref = "spellChecker"/>
+    	</bean>
+
+    	<bean id = "spellChecker" class = "com.springtutorial.SpellChecker">
+		</bean>
+	</beans>
+
+The only difference between this .xml and constructor-based one is that here we use <property> to give a **ref** (not **value**!) to the spellChecker field, while in constructor-based one we use <constructor-arg>.
+
+### A convenient way if you have a lot of setter methods ###
+
+When we have a lot of setter methods, we can use **p-namespace** to simplify our .xml file.
+
+For example, when we have such a .xml file:
+
+	<?xml version = "1.0" encoding = "UTF-8"?>    
+    	
+    <beans xmlns = "http://www.springframework.org/schema/beans"
+      xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation = "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    	<bean id = "john-classic" class = "com.example.Person">
+      		<property name = "name" value = "John Doe"/>
+      		<property name = "spouse" ref = "jane"/>
+       </bean>
+	
+       <bean name = "jane" class = "com.example.Person">
+      		<property name = "name" value = "John Doe"/>
+       </bean>
+    
+    </beans>
+
+We can find that if we have more classes and more setter methods, we need to write a lot of <property>. Instead, we can p-namespace.
+
+    <?xml version = "1.0" encoding = "UTF-8"?>
+	
+    <beans xmlns = "http://www.springframework.org/schema/beans"
+       xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p = "http://www.springframework.org/schema/p"
+       xsi:schemaLocation = "http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+       <bean id = "john-classic" class = "com.example.Person"
+      		p:name = "John Doe"
+      		p:spouse-ref = "jane"/>
+       </bean>
+    
+       <bean name =" jane" class = "com.example.Person"
+      		p:name = "John Doe"/>
+       </bean>
+	
+    </beans>
+    
+First it adds a  "xmlns:p = "http://www.springframework.org/schema/p" in the <beans>, then we can use the p-namespace. Comparing this with the previous .xml, we can find that we don't need to write separate <property> below <bean>. Instead, we just write p:NameOfParam in the <bean>. For example, <property name = "name" value = "John Doe"> becomes p:name = "John Doe". 
+
+Also, it is obvious that if we are assigning a value to this parameter, we use p:name; but if we are assigning a reference, we use p:name-ref to tell the container that this is a reference.
+
+## Rule of thumb ##
+Although we can mix both methods, it is a good rule of thumb to use constructor arguments for mandatory dependencies and setters for optional dependencies.
