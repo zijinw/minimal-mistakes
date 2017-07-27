@@ -150,7 +150,7 @@ Compared to constructor-based DI, setter-based DI first invokes a no-argument co
 	public class TextEditor {
     	private SpellChecker spellChecker;
 	
-    	// a setter method
+    	// a setter method to inject the dependency
     	public void setSpellChecker(SpellChecker spellChecker) {
     	    System.out.println("Inside setSpellChecker.");
     	    this.spellChecker = spellChecker;
@@ -180,7 +180,7 @@ The SpellChecker class is as before.
 	    }
 	}
 
-The main function is also as before.
+The main method is also as before.
 
 	package com.springtutorial;
 	
