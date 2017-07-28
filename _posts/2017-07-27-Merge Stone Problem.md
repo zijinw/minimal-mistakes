@@ -38,6 +38,7 @@ categories: Algorithm
     	    return res;
     	}
 	}
+
 Here actually we have duplicate work in calculating partialSum. Using the DP, we can also maintain a 2-D array that stores the partialSum from j to i, instead calculating the whole length all the time. Using this method, a better solution is as follows.
 
 	public class Solution {
