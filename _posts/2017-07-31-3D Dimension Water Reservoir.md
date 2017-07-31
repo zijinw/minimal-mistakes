@@ -28,3 +28,5 @@ The level here is the ability of retaining water if the height == 0. The actuall
     Height(Q) - Level(Q)
 
 So we can find that if Height(Q) < Level(P), the level of P will be passed to Q. The neighbors of Q will continuously be compared with Level(P). If Height(Q) > Level(P), the volume of water it in fact can retain is 0, but its neighbors will be compared with Level(Q), a higher level.
+
+6. **Important**: for one point, its level may change in the future, when we meet more points! So we need to update level in this heap if we find that the level of this point changes.
